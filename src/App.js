@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
 
-function App() {
+const App = React.memo(() => {
+  const [data, setData] = useState(null)
+  const [scene, setScene] = useState(null)
+
+  useEffect(() => {
+    fetch(`${process.env.PUBLIC_URL}/data/the-office.min.json`)
+      .then(response => response.json())
+      .then(data => {
+        setData(data)
+        setScene(getRandomScene(data))
+      })
+  }, [])
+
+  function handleRefresh() {
+    setScene(getRandomScene(data))
+  }
+
+  if (!scene) return null
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ maxWidth: 600, margin: '1rem auto' }}>
+      <div>
+        <button onClick={handleRefresh}>refresh</button>
+      </div>
+      <code>{JSON.stringify(scene, null, 2)}</code>
     </div>
-  );
+  )
+})
+
+function getRandomScene(data) {
+  const randomEpisode = sample(data)
+  const { season, episode, title, scenes } = randomEpisode
+  const randomScene = sample(scenes)
+  return { season, episode, title, scene: randomScene }
 }
 
-export default App;
+function sample(arr) {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
+export default App
