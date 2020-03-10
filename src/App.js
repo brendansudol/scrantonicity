@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Box, Button, Text } from 'rebass'
 
 const App = React.memo(() => {
   const [data, setData] = useState(null)
@@ -19,13 +20,30 @@ const App = React.memo(() => {
 
   if (!scene) return null
 
+  const { season, episode, title, scene: lineData } = scene
+
   return (
-    <div style={{ maxWidth: 600, margin: '1rem auto' }}>
-      <div>
-        <button onClick={handleRefresh}>refresh</button>
-      </div>
-      <code>{JSON.stringify(scene, null, 2)}</code>
-    </div>
+    <Box sx={{ mx: 'auto', p: 3, maxWidth: 512, fontFamily: 'athelas, serif' }}>
+      <Box mb={3}>
+        <Box mb={3}>
+          {lineData.map((datum, idx) => (
+            <Box key={idx} mb={2}>
+              <Text fontWeight="bold">{datum.speaker}</Text>
+              <Text>{datum.line}</Text>
+            </Box>
+          ))}
+        </Box>
+        <Text fontStyle="italic" fontSize={14}>
+          – {title} (Season {season}, Episode {episode})
+        </Text>
+      </Box>
+      <Button
+        sx={{ px: 2, py: 1, bg: 'tomato', fontSize: 12, fontWeight: 'bold' }}
+        onClick={handleRefresh}
+      >
+        Primary
+      </Button>
+    </Box>
   )
 })
 
