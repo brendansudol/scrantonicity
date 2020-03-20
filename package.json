@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-highlight-words": "^0.16.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "rebass": "^4.0.7"
@@ -23,7 +24,11 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

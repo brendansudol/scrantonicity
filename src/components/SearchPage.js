@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import Highlighter from 'react-highlight-words'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Box, Button, Flex, Text } from 'rebass'
 import { Input } from '@rebass/forms'
@@ -35,7 +36,7 @@ export const SearchPage = React.memo(() => {
   return (
     <Box sx={{ mx: 'auto', p: 3, maxWidth: 512, fontFamily: 'athelas, serif' }}>
       <Searchbox initialValue={query} onSubmit={handleSearch} />
-      <ResultList results={results} />
+      <ResultList query={query} results={results} />
     </Box>
   )
 })
@@ -58,7 +59,7 @@ const Searchbox = React.memo(({ initialValue, onSubmit }) => {
   )
 })
 
-const ResultList = React.memo(({ results }) => {
+const ResultList = React.memo(({ query, results }) => {
   if (results == null) return null
   const ct = results.length
 
@@ -75,7 +76,11 @@ const ResultList = React.memo(({ results }) => {
           {sceneData.map((line, j) => (
             <Box key={j} mb={2}>
               <Text fontWeight="bold">{line.speaker}</Text>
-              <Text>{line.line}</Text>
+              <Highlighter
+                searchWords={[query]}
+                autoEscape={true}
+                textToHighlight={line.line}
+              />
             </Box>
           ))}
         </Box>
@@ -115,9 +120,12 @@ function getResults(corpus, query) {
   const re = new RegExp(query, 'i')
 
   for (const entry of corpus) {
-    const containsQuery = entry.sceneLines.some(line => line.match(re) != null)
-    if (containsQuery) {
-      matches.push(entry)
+    const matchedLines = []
+    for (const [idx, line] of entry.sceneLines.entries()) {
+      if (line.match(re) != null) matchedLines.push(idx)
+    }
+    if (matchedLines.length > 0) {
+      matches.push({ ...entry, matchedLines })
       if (matches.length === MAX_RESULTS) return matches
     }
   }
