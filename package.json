@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@rebass/forms": "^4.0.6",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "classnames": "^2.2.6",
+    "lodash-es": "^4.17.15",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-highlight-words": "^0.16.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "rebass": "^4.0.7"
+    "theme-ui": "^0.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
