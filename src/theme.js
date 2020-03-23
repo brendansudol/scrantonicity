@@ -147,9 +147,9 @@ export const theme = {
   },
   images: {
     avatar: {
-      width: 48,
-      height: 48,
-      borderRadius: 9999
+      width: 40,
+      height: 40,
+      borderRadius: 5
     }
   },
   cards: {

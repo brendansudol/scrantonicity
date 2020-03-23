@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import React from 'react'
-import { Link, matchPath, useLocation } from 'react-router-dom'
-import { Box, Flex, Heading, NavLink } from 'theme-ui'
-import { routes } from '../routes'
+import { Link, useLocation } from 'react-router-dom'
+import { Box, Flex, Heading, Image, NavLink } from 'theme-ui'
+import { getActiveTab, routesWithTabs } from '../routes'
 
 export const Header = React.memo(() => {
   const { pathname } = useLocation()
@@ -10,9 +10,12 @@ export const Header = React.memo(() => {
 
   return (
     <Box>
-      <Heading>Hello</Heading>
+      <Flex mb={3} sx={{ alignItems: 'center' }}>
+        <Image src={`${process.env.PUBLIC_URL}/logo.png`} variant="avatar" />
+        <Heading ml={2}>Scrantonicity</Heading>
+      </Flex>
       <Flex as="nav" mb={3}>
-        {routes.map(({ tab }, i) => (
+        {routesWithTabs.map(({ tab }, i) => (
           <NavLink
             key={i}
             p={1}
@@ -27,10 +30,3 @@ export const Header = React.memo(() => {
     </Box>
   )
 })
-
-function getActiveTab(path, routeData = routes) {
-  const allPaths = routeData.map(route => route.path)
-  const match = matchPath(path, allPaths)
-  const matchIdx = allPaths.findIndex(path => path === match.path)
-  return matchIdx >= 0 ? matchIdx : undefined
-}
