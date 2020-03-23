@@ -1,9 +1,11 @@
 TODO:
 
 * new name - scrantonicity?
-* better episode select component
-* header component
-* loading component
-* unify smart and dumb quotes (seeing both in "that's what she said")
-* cut off number of results after certain threshold (100?)
-* improve Search getResults function
+* logo / some art?
+* header
+* footer (sticky bottom)
+* figure out what to do at `/` path
+* figure out zero state for episode page
+* error states for episode & search page
+* use context for episode/scene data
+* share buttons (icons?) for scene box
