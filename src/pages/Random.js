@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { Box, Button, Text } from 'theme-ui'
 import { Loading } from '../components/Loading'
+import { SceneLines } from '../components/SceneLines'
 import { AppContext } from '../context'
 
 export const Random = React.memo(() => {
@@ -22,18 +24,16 @@ export const Random = React.memo(() => {
 
   if (!scene) return <Loading />
 
-  const { season, episode, title, lineData } = scene
+  const { season, episode, title, sceneLines } = scene
 
   return (
     <Box>
+      <Helmet>
+        <title>Scantonicity :: Random scene</title>
+      </Helmet>
       <Box sx={{ mb: 3, p: 2, bg: '#f8f8f8', borderRadius: 5 }}>
         <Box mb={3}>
-          {lineData.map(({ speaker, line }, i) => (
-            <Box key={i} mb={2}>
-              <Text variant="heading">{speaker}</Text>
-              <Text>{line}</Text>
-            </Box>
-          ))}
+          <SceneLines scene={sceneLines} />
         </Box>
         <Text sx={{ fontStyle: 'italic', fontSize: 14 }}>
           – {title} (Season {season}, Episode {episode})
@@ -53,7 +53,7 @@ function getRandomScene(episodeData) {
   const randomEpisode = sample(episodeData)
   const { season, episode, title, scenes } = randomEpisode
   const randomScene = sample(scenes)
-  return { season, episode, title, lineData: randomScene }
+  return { season, episode, title, sceneLines: randomScene }
 }
 
 function sample(arr) {

@@ -1,26 +1,34 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import Highlighter from 'react-highlight-words'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Box, Button, Flex, Input, Text } from 'theme-ui'
+import { Loading } from '../components/Loading'
 import { AppContext } from '../context'
+import { useHash, useQuery } from '../hooks'
 
 const MAX_RESULTS = 100
 
 export const Search = React.memo(() => {
   const { data } = useContext(AppContext)
   const corpus = data?.sceneData
+
+  const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
 
   const history = useHistory()
-  const location = useLocation()
+  const hash = useHash()
   const queryParams = useQuery()
   const query = queryParams.get('q') ?? ''
-  const hash = location.hash.slice(1)
 
   useEffect(
     () => {
       if (corpus == null || query === '') return
-      setResults(getResults(corpus, query))
+      setIsLoading(true)
+      wait(500).then(() => {
+        setResults(getResults(corpus, query))
+        setIsLoading(false)
+      })
     },
     [corpus, query]
   )
@@ -41,8 +49,11 @@ export const Search = React.memo(() => {
 
   return (
     <Box>
+      <Helmet>
+        <title>Scantonicity :: Search for favorite quotes</title>
+      </Helmet>
       <SearchForm initialValue={query} onSubmit={handleSearch} />
-      <ResultList query={query} results={results} />
+      <ResultList query={query} isLoading={isLoading} results={results} />
     </Box>
   )
 })
@@ -77,13 +88,14 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
   )
 })
 
-const ResultList = React.memo(({ query, results }) => {
+const ResultList = React.memo(({ query, isLoading, results }) => {
+  if (isLoading) return <Loading />
   if (results == null) return null
   const ct = results.length
 
   return (
     <Box>
-      <Text sx="heading">
+      <Text>
         {ct === MAX_RESULTS ? `${ct}+` : ct} result{ct !== 1 ? 's' : ''}
       </Text>
       {results.map(({ season, episode, title, sceneData }, i) => {
@@ -91,12 +103,15 @@ const ResultList = React.memo(({ query, results }) => {
         return (
           <Box key={resultId} id={resultId} py={1}>
             <Box sx={{ mb: 2, p: 2, bg: '#f8f8f8', borderRadius: 5 }}>
-              <Text mb={2} sx={{ fontWeight: 'bold', fontSize: 18 }}>
-                Season {season} Episode {episode} "{title}"
+              <Text mb={3} sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                "{title}" (Season {season} Episode {episode})
               </Text>
+
               {sceneData.map((line, j) => (
-                <Box key={j} mb={2}>
-                  <Text variant="heading">{line.speaker}</Text>
+                <Box key={j} mb={j !== sceneData.length - 1 ? 3 : undefined}>
+                  <Text variant="caps" sx={{ fontSize: 12 }}>
+                    {line.speaker}
+                  </Text>
                   <Highlighter
                     searchWords={[cleanQuery(query)]}
                     autoEscape={true}
@@ -112,15 +127,15 @@ const ResultList = React.memo(({ query, results }) => {
   )
 })
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search)
-}
-
 function cleanQuery(query) {
   return query
     .replace(/[‘’]/g, "'")
     .replace(/[“”]/g, '"')
     .trim()
+}
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 function getResults(corpus, query) {

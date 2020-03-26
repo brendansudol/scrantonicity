@@ -26,7 +26,7 @@ export const theme = {
     body:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     heading: 'athelas, serif',
-    monospace: 'Menlo, monospace'
+    monospace: 'menlo, consolas, monaco, monospace'
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
   fontWeights: {
@@ -57,8 +57,11 @@ export const theme = {
       mt: 3
     },
     caps: {
+      fontFamily: 'monospace',
+      fontWeight: 'bold',
+      lineHeight: 'heading',
       textTransform: 'uppercase',
-      letterSpacing: '0.2em'
+      letterSpacing: '0.1em'
     }
   },
   buttons: {

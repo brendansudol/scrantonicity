@@ -1,18 +1,20 @@
 import React, { useCallback, useContext, useEffect, useMemo } from 'react'
-import { useHistory, useLocation, useParams } from 'react-router-dom'
-import { Box, Label, Select, Text } from 'theme-ui'
+import { Helmet } from 'react-helmet'
+import { useHistory, useParams } from 'react-router-dom'
+import { Box, Label, Select } from 'theme-ui'
 import { Loading } from '../components/Loading'
+import { SceneLines } from '../components/SceneLines'
 import { AppContext } from '../context'
+import { useHash } from '../hooks'
 
 export const Episode = React.memo(() => {
   const { data } = useContext(AppContext)
   const episodeData = data?.episodeData
 
   const history = useHistory()
-  const location = useLocation()
+  const hash = useHash()
   const { id } = useParams()
   const episodeId = id ?? ''
-  const hash = location.hash.slice(1)
 
   useEffect(
     () => {
@@ -51,6 +53,9 @@ export const Episode = React.memo(() => {
 
   return (
     <Box>
+      <Helmet>
+        <title>Scantonicity :: Read episode scripts</title>
+      </Helmet>
       <Box mb={3}>
         <Label htmlFor="episode">Episode</Label>
         <Select name="episode" value={episodeId} onChange={handleEpisodeChange}>
@@ -71,12 +76,7 @@ export const Episode = React.memo(() => {
                 <Box
                   sx={{ mb: 2, p: 2, bg: '#f8f8f8', borderRadius: 5, border }}
                 >
-                  {scene.map((line, j) => (
-                    <Box key={j} mb={2}>
-                      <Text variant="heading">{line.speaker}</Text>
-                      <Text>{line.line}</Text>
-                    </Box>
-                  ))}
+                  <SceneLines scene={scene} />
                 </Box>
               </Box>
             )

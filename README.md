@@ -1,12 +1,12 @@
 TODO:
 
-* header
 * footer (sticky bottom)
 * figure out zero state for episode page
 * error states for episode & search page
 * share buttons (icons?) for scene box
-* per-page head metadata
+* header
 * design polish
+* remove punctuation when searching
 
 COMPLETED:
 
@@ -15,3 +15,5 @@ COMPLETED:
 * use context for episode/scene data (DONE)
 * figure out hosting (DONE, zeit now)
 * figure out what to do at `/` path (DONE-ISH)
+* per-page head metadata (DONE-ISH)
+* search loading state (DONE)
