@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Box, Label, Select } from 'theme-ui'
 import { Loading } from '../components/Loading'
 import { SceneLines } from '../components/SceneLines'
+import { ScrollToTopButton } from '../components/ScrollToTopButton'
 import { AppContext } from '../context'
 import { useHash } from '../hooks'
 
@@ -83,6 +84,7 @@ export const Episode = React.memo(() => {
           })}
         </Box>
       )}
+      <ScrollToTopButton />
     </Box>
   )
 })
