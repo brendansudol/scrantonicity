@@ -2,10 +2,12 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Highlighter from 'react-highlight-words'
 import { useHistory } from 'react-router-dom'
-import { Box, Button, Flex, Input, Text } from 'theme-ui'
+import { Box, Button, Flex, Input, Message, Text } from 'theme-ui'
 import { Loading } from '../components/Loading'
+import { ScrollToTopButton } from '../components/ScrollToTopButton'
 import { AppContext } from '../context'
 import { useHash, useQuery } from '../hooks'
+import { sanitizeText, wait } from '../utils'
 
 const MAX_RESULTS = 100
 
@@ -54,6 +56,7 @@ export const Search = React.memo(() => {
       </Helmet>
       <SearchForm initialValue={query} onSubmit={handleSearch} />
       <ResultList query={query} isLoading={isLoading} results={results} />
+      <ScrollToTopButton />
     </Box>
   )
 })
@@ -70,17 +73,19 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
   )
 
   return (
-    <Box as="form" onSubmit={handleSubmit}>
-      <Flex mx={-2} mb={3} sx={{ alignItems: 'center' }}>
-        <Box px={2} sx={{ flex: '1 1 auto' }}>
+    <Box mb={4} as="form" onSubmit={handleSubmit}>
+      <Flex mx={-1} sx={{ alignItems: 'center' }}>
+        <Box px={1} sx={{ flex: '1 1 auto' }}>
           <Input
             id="query"
             name="query"
+            placeholder="Search..."
             value={query}
             onChange={handleChange}
+            autoFocus={true}
           />
         </Box>
-        <Box px={2}>
+        <Box px={1}>
           <Button onClick={() => onSubmit(query)}>Search</Button>
         </Box>
       </Flex>
@@ -90,12 +95,22 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
 
 const ResultList = React.memo(({ query, isLoading, results }) => {
   if (isLoading) return <Loading />
-  if (results == null) return null
+  if (results == null || query === '') return null
+
   const ct = results.length
+  const highlighterQuery = normalizeQueryForHighlighter(query)
+
+  if (ct === 0) {
+    return (
+      <Message variant="danger">
+        <strong>Sorry!</strong> No results for <em>{query}</em>
+      </Message>
+    )
+  }
 
   return (
     <Box>
-      <Text>
+      <Text mb={1}>
         {ct === MAX_RESULTS ? `${ct}+` : ct} result{ct !== 1 ? 's' : ''}
       </Text>
       {results.map(({ season, episode, title, sceneData }, i) => {
@@ -106,15 +121,13 @@ const ResultList = React.memo(({ query, isLoading, results }) => {
               <Text mb={3} sx={{ fontWeight: 'bold', fontSize: 16 }}>
                 "{title}" (Season {season} Episode {episode})
               </Text>
-
               {sceneData.map((line, j) => (
                 <Box key={j} mb={j !== sceneData.length - 1 ? 3 : undefined}>
                   <Text variant="caps" sx={{ fontSize: 12 }}>
                     {line.speaker}
                   </Text>
                   <Highlighter
-                    searchWords={[cleanQuery(query)]}
-                    autoEscape={true}
+                    searchWords={[highlighterQuery]}
                     textToHighlight={line.line}
                   />
                 </Box>
@@ -127,20 +140,9 @@ const ResultList = React.memo(({ query, isLoading, results }) => {
   )
 })
 
-function cleanQuery(query) {
-  return query
-    .replace(/[‘’]/g, "'")
-    .replace(/[“”]/g, '"')
-    .trim()
-}
-
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
 function getResults(corpus, query) {
   const matches = []
-  const re = new RegExp(cleanQuery(query), 'i')
+  const re = new RegExp(sanitizeText(query))
 
   for (const entry of corpus) {
     const matchedLines = []
@@ -154,4 +156,9 @@ function getResults(corpus, query) {
   }
 
   return matches
+}
+
+function normalizeQueryForHighlighter(query) {
+  const words = sanitizeText(query).split(' ')
+  return new RegExp(`${words.join('[\\s.?…,–]+')}`)
 }

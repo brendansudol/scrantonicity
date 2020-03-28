@@ -12,7 +12,7 @@ const Root = () => (
   <AppProvider>
     <ThemeProvider theme={theme}>
       <Router>
-        <Container p={2} sx={{ fontFamily: 'athelas, serif' }}>
+        <Container p={2} sx={{ fontFamily: 'athelas, georgia, serif' }}>
           <Header />
           <Switch>
             {routes.map(({ exact, path, component }, i) => (

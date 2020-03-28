@@ -58,8 +58,16 @@ export const Episode = React.memo(() => {
         <title>Scantonicity :: Read episode scripts</title>
       </Helmet>
       <Box mb={3}>
-        <Label htmlFor="episode">Episode</Label>
-        <Select name="episode" value={episodeId} onChange={handleEpisodeChange}>
+        <Label htmlFor="episode" className="hide">
+          Episode
+        </Label>
+        <Select
+          name="episode"
+          value={episodeId}
+          onChange={handleEpisodeChange}
+          autoFocus={true}
+        >
+          <option value="">Select an episode</option>
           {episodeOptions.map(({ value, label }) => (
             <option key={value} value={value}>
               {label}

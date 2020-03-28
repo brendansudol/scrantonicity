@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
+import { sanitizeText } from './utils'
 
 export const AppContext = createContext()
 
@@ -24,17 +25,9 @@ function getSceneData(episodeData) {
   for (const datum of episodeData) {
     const { id: episodeId, scenes, ...rest } = datum
     for (const [sceneId, sceneData] of scenes.entries()) {
-      const sceneLines = sceneData.map(d => sanitize(d.line))
+      const sceneLines = sceneData.map(d => sanitizeText(d.line))
       entries.push({ episodeId, sceneId, sceneData, sceneLines, ...rest })
     }
   }
   return entries
-}
-
-function sanitize(text) {
-  return text
-    .replace(/\[.+\]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase()
 }

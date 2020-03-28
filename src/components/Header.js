@@ -9,12 +9,12 @@ export const Header = React.memo(() => {
   const activeTab = getActiveTab(pathname) ?? 0
 
   return (
-    <Box>
+    <Box mb={4}>
       <Flex mb={3} sx={{ alignItems: 'center' }}>
         <Image src={`${process.env.PUBLIC_URL}/logo.png`} variant="avatar" />
         <Heading ml={2}>Scrantonicity</Heading>
       </Flex>
-      <Flex as="nav" mb={3}>
+      <Flex as="nav">
         {routesWithTabs.map(({ tab }, i) => (
           <NavLink
             key={i}

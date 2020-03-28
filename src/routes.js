@@ -18,7 +18,7 @@ export const routes = [
     component: Episode,
     tab: {
       label: 'Episode scripts',
-      href: '/episode/01-01'
+      href: '/episode'
     }
   },
   {

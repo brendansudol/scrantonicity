@@ -18,6 +18,7 @@ export const theme = {
         muted: '#191919',
         highlight: '#29112c',
         gray: '#999999',
+        lightgray: '#eee',
         accent: '#cc00ff'
       }
     }
@@ -25,7 +26,7 @@ export const theme = {
   fonts: {
     body:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
-    heading: 'athelas, serif',
+    heading: 'athelas, georgia, serif',
     monospace: 'menlo, consolas, monaco, monospace'
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
@@ -36,7 +37,7 @@ export const theme = {
     display: 800
   },
   lineHeights: {
-    body: 1.5,
+    body: 1.4,
     heading: 1.25
   },
   sizes: {
@@ -174,7 +175,7 @@ export const theme = {
       fontWeight: 'bold'
     },
     input: {
-      borderColor: 'gray',
+      borderColor: 'lightgray',
       '&:focus': {
         borderColor: 'primary',
         boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
@@ -182,7 +183,7 @@ export const theme = {
       }
     },
     select: {
-      borderColor: 'gray',
+      borderColor: 'lightgray',
       '&:focus': {
         borderColor: 'primary',
         boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
@@ -190,7 +191,7 @@ export const theme = {
       }
     },
     textarea: {
-      borderColor: 'gray',
+      borderColor: 'lightgray',
       '&:focus': {
         borderColor: 'primary',
         boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
@@ -216,6 +217,18 @@ export const theme = {
     highlight: {
       color: 'text',
       bg: 'highlight'
+    }
+  },
+  messages: {
+    success: {
+      color: '#257942',
+      borderLeftColor: '#48c774',
+      bg: '#effaf3'
+    },
+    danger: {
+      color: '#cc0f35',
+      borderLeftColor: '#f14668',
+      bg: '#feecf0'
     }
   },
   layout: {
