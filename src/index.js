@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Container, ThemeProvider } from 'theme-ui'
+import { ColorModeToggle } from './components/ColorModeToggle'
 import { Header } from './components/Header'
 import { AppProvider } from './context'
 import { routes } from './routes'
@@ -19,6 +20,7 @@ const Root = () => (
               <Route key={i} {...{ exact, path, component }} />
             ))}
           </Switch>
+          <ColorModeToggle />
         </Container>
       </Router>
     </ThemeProvider>
