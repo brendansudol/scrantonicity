@@ -1,8 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Container, ThemeProvider } from 'theme-ui'
+import { Box, Container, ThemeProvider } from 'theme-ui'
 import { ColorModeToggle } from './components/ColorModeToggle'
+import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { AppProvider } from './context'
 import { routes } from './routes'
@@ -13,15 +14,27 @@ const Root = () => (
   <AppProvider>
     <ThemeProvider theme={theme}>
       <Router>
-        <Container p={2} sx={{ fontFamily: 'athelas, georgia, serif' }}>
-          <Header />
-          <Switch>
-            {routes.map(({ exact, path, component }, i) => (
-              <Route key={i} {...{ exact, path, component }} />
-            ))}
-          </Switch>
+        <Box sx={{ fontFamily: 'athelas, georgia, serif' }}>
+          <Container
+            p={2}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: '100vh'
+            }}
+          >
+            <Header />
+            <Box as="main" sx={{ width: '100%', flex: '1 1 auto' }}>
+              <Switch>
+                {routes.map(({ exact, path, component }, i) => (
+                  <Route key={i} {...{ exact, path, component }} />
+                ))}
+              </Switch>
+            </Box>
+            <Footer />
+          </Container>
           <ColorModeToggle />
-        </Container>
+        </Box>
       </Router>
     </ThemeProvider>
   </AppProvider>

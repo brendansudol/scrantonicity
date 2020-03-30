@@ -117,7 +117,7 @@ const ResultList = React.memo(({ query, isLoading, results }) => {
         const resultId = `result-${i + 1}`
         return (
           <Box key={resultId} id={resultId} py={1}>
-            <Box sx={{ mb: 2, p: 2, bg: '#f8f8f8', borderRadius: 5 }}>
+            <Box mb={2} p={2} bg="muted" sx={{ borderRadius: 5 }}>
               <Text mb={3} sx={{ fontWeight: 'bold', fontSize: 16 }}>
                 "{title}" (Season {season} Episode {episode})
               </Text>

@@ -31,7 +31,7 @@ export const Random = React.memo(() => {
       <Helmet>
         <title>Scantonicity :: Random scene</title>
       </Helmet>
-      <Box sx={{ mb: 3, p: 2, bg: '#f8f8f8', borderRadius: 5 }}>
+      <Box mb={3} p={2} bg="muted" sx={{ borderRadius: 5 }}>
         <Box mb={3}>
           <SceneLines scene={sceneLines} />
         </Box>

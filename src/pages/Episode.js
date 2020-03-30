@@ -82,9 +82,7 @@ export const Episode = React.memo(() => {
             const border = hash === sceneId ? '2px solid #e4e4e4' : undefined
             return (
               <Box key={sceneId} id={sceneId} py={1}>
-                <Box
-                  sx={{ mb: 2, p: 2, bg: '#f8f8f8', borderRadius: 5, border }}
-                >
+                <Box mb={2} p={2} bg="muted" sx={{ borderRadius: 5, border }}>
                   <SceneLines scene={scene} />
                 </Box>
               </Box>

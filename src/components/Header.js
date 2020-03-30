@@ -9,7 +9,7 @@ export const Header = React.memo(() => {
   const activeTab = getActiveTab(pathname) ?? 0
 
   return (
-    <Box mb={4}>
+    <Box as="header" mb={4}>
       <Flex mb={3} sx={{ alignItems: 'center' }}>
         <Image src={`${process.env.PUBLIC_URL}/logo.png`} variant="avatar" />
         <Heading ml={2}>Scrantonicity</Heading>
