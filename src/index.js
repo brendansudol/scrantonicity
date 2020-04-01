@@ -2,7 +2,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Box, Container, ThemeProvider } from 'theme-ui'
-import { ColorModeToggle } from './components/ColorModeToggle'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { AppProvider } from './context'
@@ -33,7 +32,6 @@ const Root = () => (
             </Box>
             <Footer />
           </Container>
-          <ColorModeToggle />
         </Box>
       </Router>
     </ThemeProvider>

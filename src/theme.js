@@ -42,7 +42,7 @@ export const theme = {
   },
   sizes: {
     sidebar: 256,
-    container: 512
+    container: 600
   },
   text: {
     heading: {
@@ -69,7 +69,11 @@ export const theme = {
     primary: {
       color: 'background',
       bg: 'primary',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      borderRadius: 8,
+      '&:hover': {
+        cursor: 'pointer'
+      }
     },
     secondary: {
       variant: 'buttons.primary',
@@ -83,6 +87,15 @@ export const theme = {
       '&:hover, &:focus': {
         bg: 'primary'
       }
+    },
+    icon: {
+      width: 24,
+      height: 24,
+      p: 0,
+      '&:hover': {
+        cursor: 'pointer',
+        bg: 'muted'
+      }
     }
   },
   links: {
@@ -94,7 +107,7 @@ export const theme = {
       p: 3,
       color: 'background',
       bg: 'text',
-      borderRadius: 6,
+      borderRadius: 8,
       '&:hover, &:focus': {
         color: 'background',
         bg: 'primary'
@@ -102,9 +115,9 @@ export const theme = {
     },
     nav: {
       display: 'block',
-      width: '100%',
-      px: 2,
-      py: 2,
+      mr: 2,
+      px: 3,
+      py: 1,
       color: 'inherit',
       textAlign: 'center',
       textDecoration: 'none',
@@ -114,7 +127,7 @@ export const theme = {
       transitionProperty: 'background-color',
       transitionTimingFunction: 'ease-out',
       transitionDuration: '.2s',
-      borderRadius: 2,
+      borderRadius: 8,
       '&:hover': {
         bg: 'highlight'
       },
@@ -153,18 +166,18 @@ export const theme = {
     avatar: {
       width: 40,
       height: 40,
-      borderRadius: 5
+      borderRadius: 8
     }
   },
   cards: {
     primary: {
       padding: 2,
-      borderRadius: 4,
-      boxShadow: '0 0 8px rgba(0, 0, 0, 0.125)'
+      borderRadius: 8,
+      bg: 'muted'
     },
     compact: {
       padding: 1,
-      borderRadius: 2,
+      borderRadius: 4,
       border: '1px solid',
       borderColor: 'muted'
     }
@@ -176,6 +189,7 @@ export const theme = {
     },
     input: {
       borderColor: 'lightgray',
+      borderRadius: 8,
       '&:focus': {
         borderColor: 'primary',
         boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
@@ -184,6 +198,7 @@ export const theme = {
     },
     select: {
       borderColor: 'lightgray',
+      borderRadius: 8,
       '&:focus': {
         borderColor: 'primary',
         boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
@@ -192,6 +207,7 @@ export const theme = {
     },
     textarea: {
       borderColor: 'lightgray',
+      borderRadius: 8,
       '&:focus': {
         borderColor: 'primary',
         boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
@@ -234,7 +250,6 @@ export const theme = {
   layout: {
     container: {
       p: 3
-      // maxWidth: 1024,
     }
   },
   styles: {

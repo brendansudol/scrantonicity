@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { useHistory, useParams } from 'react-router-dom'
-import { Box, Label, Select } from 'theme-ui'
+import { Box, Card, Label, Select } from 'theme-ui'
 import { Loading } from '../components/Loading'
 import { SceneLines } from '../components/SceneLines'
 import { ScrollToTopButton } from '../components/ScrollToTopButton'
@@ -82,9 +82,9 @@ export const Episode = React.memo(() => {
             const border = hash === sceneId ? '2px solid #e4e4e4' : undefined
             return (
               <Box key={sceneId} id={sceneId} py={1}>
-                <Box mb={2} p={2} bg="muted" sx={{ borderRadius: 5, border }}>
+                <Card mb={2} sx={{ border }}>
                   <SceneLines scene={scene} />
-                </Box>
+                </Card>
               </Box>
             )
           })}

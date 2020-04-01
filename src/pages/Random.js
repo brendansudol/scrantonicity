@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { Box, Button, Text } from 'theme-ui'
+import { Box, Button, Card, Text } from 'theme-ui'
 import { Loading } from '../components/Loading'
 import { SceneLines } from '../components/SceneLines'
 import { AppContext } from '../context'
@@ -31,14 +31,14 @@ export const Random = React.memo(() => {
       <Helmet>
         <title>Scantonicity :: Random scene</title>
       </Helmet>
-      <Box mb={3} p={2} bg="muted" sx={{ borderRadius: 5 }}>
+      <Card mb={3}>
         <Box mb={3}>
           <SceneLines scene={sceneLines} />
         </Box>
         <Text sx={{ fontStyle: 'italic', fontSize: 14 }}>
           – {title} (Season {season}, Episode {episode})
         </Text>
-      </Box>
+      </Card>
       <Button
         sx={{ px: 2, py: 1, bg: 'tomato', fontSize: 12, fontWeight: 'bold' }}
         onClick={handleRefresh}

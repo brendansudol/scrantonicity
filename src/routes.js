@@ -26,7 +26,7 @@ export const routes = [
     exact: true,
     component: Search,
     tab: {
-      label: 'Search for quotes',
+      label: 'Search favorite lines',
       href: '/search'
     }
   },

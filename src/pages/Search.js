@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Highlighter from 'react-highlight-words'
 import { useHistory } from 'react-router-dom'
-import { Box, Button, Flex, Input, Message, Text } from 'theme-ui'
+import { Box, Button, Card, Flex, Input, Message, Text } from 'theme-ui'
 import { Loading } from '../components/Loading'
 import { ScrollToTopButton } from '../components/ScrollToTopButton'
 import { AppContext } from '../context'
@@ -117,7 +117,7 @@ const ResultList = React.memo(({ query, isLoading, results }) => {
         const resultId = `result-${i + 1}`
         return (
           <Box key={resultId} id={resultId} py={1}>
-            <Box mb={2} p={2} bg="muted" sx={{ borderRadius: 5 }}>
+            <Card mb={2}>
               <Text mb={3} sx={{ fontWeight: 'bold', fontSize: 16 }}>
                 "{title}" (Season {season} Episode {episode})
               </Text>
@@ -132,7 +132,7 @@ const ResultList = React.memo(({ query, isLoading, results }) => {
                   />
                 </Box>
               ))}
-            </Box>
+            </Card>
           </Box>
         )
       })}
