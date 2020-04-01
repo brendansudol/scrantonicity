@@ -47,7 +47,7 @@ export const Header = React.memo(() => {
         ))}
       </Flex>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <Box p={3}>Stay tuned!</Box>
+        <Box>Stay tuned!</Box>
       </Modal>
     </Box>
   )
