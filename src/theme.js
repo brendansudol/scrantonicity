@@ -8,7 +8,7 @@ export const theme = {
     highlight: '#efeffe',
     gray: '#777777',
     accent: '#660099',
-    darken: 'rgba(0, 0, 0, .25)',
+    darken: 'rgba(0, 0, 0, .0625)',
     modes: {
       dark: {
         text: '#ffffff',
@@ -19,7 +19,8 @@ export const theme = {
         highlight: '#29112c',
         gray: '#999999',
         lightgray: '#eee',
-        accent: '#cc00ff'
+        accent: '#cc00ff',
+        darken: 'rgba(255, 255, 255, .0625)'
       }
     }
   },
@@ -92,10 +93,18 @@ export const theme = {
       width: 24,
       height: 24,
       p: 0,
+      borderRadius: 8,
       '&:hover': {
         cursor: 'pointer',
-        bg: 'muted'
+        bg: 'darken'
       }
+    },
+    iconSm: {
+      variant: 'buttons.icon',
+      width: 20,
+      height: 20,
+      borderRadius: 4,
+      color: 'gray'
     }
   },
   links: {

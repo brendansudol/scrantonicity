@@ -1,12 +1,10 @@
 TODO:
 
-* new header
 * share buttons (icons?) for scene box
-
 * zero state for episode page
 * error state for episode
 * figure out fonts
-* about page / modal?
+* about modal content
 
 COMPLETED:
 
@@ -22,3 +20,5 @@ COMPLETED:
 * autofocus on select / search upon load / page change (DONE)
 * better zero results state for search (DONE)
 * footer (sticky bottom) (DONE)
+* new header (DONE)
+* about page / modal? (DONE, made modal)

@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Box, Card, Label, Select } from 'theme-ui'
 import { Loading } from '../components/Loading'
 import { SceneLines } from '../components/SceneLines'
+import { Share } from '../components/Share'
 import { ScrollToTopButton } from '../components/ScrollToTopButton'
 import { AppContext } from '../context'
 import { useHash } from '../hooks'
@@ -82,7 +83,10 @@ export const Episode = React.memo(() => {
             const border = hash === sceneId ? '2px solid #e4e4e4' : undefined
             return (
               <Box key={sceneId} id={sceneId} py={1}>
-                <Card mb={2} sx={{ border }}>
+                <Card mb={2} sx={{ position: 'relative', border }}>
+                  <Box m={1} sx={{ position: 'absolute', top: 0, right: 0 }}>
+                    <Share />
+                  </Box>
                   <SceneLines scene={scene} />
                 </Card>
               </Box>

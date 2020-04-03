@@ -7,6 +7,9 @@ import { Header } from './components/Header'
 import { AppProvider } from './context'
 import { routes } from './routes'
 import { theme } from './theme'
+
+import 'tippy.js/dist/tippy.css'
+import 'tippy.js/themes/light.css'
 import './index.css'
 
 const Root = () => (
