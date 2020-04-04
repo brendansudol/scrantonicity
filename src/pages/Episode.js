@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { useHistory, useParams } from 'react-router-dom'
-import { Box, Card, Label, Select } from 'theme-ui'
+import { Box, Card, Select } from 'theme-ui'
 import { Loading } from '../components/Loading'
 import { SceneLines } from '../components/SceneLines'
 import { Share } from '../components/Share'
@@ -59,9 +59,6 @@ export const Episode = React.memo(() => {
         <title>Scantonicity :: Read episode scripts</title>
       </Helmet>
       <Box mb={3}>
-        <Label htmlFor="episode" className="hide">
-          Episode
-        </Label>
         <Select
           name="episode"
           value={episodeId}
@@ -80,12 +77,15 @@ export const Episode = React.memo(() => {
         <Box>
           {episode.scenes.map((scene, i) => {
             const sceneId = `scene-${i + 1}`
-            const border = hash === sceneId ? '2px solid #e4e4e4' : undefined
+            const borderColor = hash === sceneId ? 'darken' : undefined
             return (
               <Box key={sceneId} id={sceneId} py={1}>
-                <Card mb={2} sx={{ position: 'relative', border }}>
+                <Card mb={2} sx={{ position: 'relative', borderColor }}>
                   <Box m={1} sx={{ position: 'absolute', top: 0, right: 0 }}>
-                    <Share />
+                    <Share
+                      hash={sceneId}
+                      message={getShareMessage(episode, scene)}
+                    />
                   </Box>
                   <SceneLines scene={scene} />
                 </Card>
@@ -98,3 +98,9 @@ export const Episode = React.memo(() => {
     </Box>
   )
 })
+
+// TODO: make message sound more gooder
+function getShareMessage(episodeData, _scene) {
+  const { season, episode, title } = episodeData
+  return `The Office - "${title}" (S${season}, E${episode}), via Scrantonicity`
+}

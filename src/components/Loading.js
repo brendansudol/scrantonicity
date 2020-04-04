@@ -4,7 +4,7 @@ import { Box, Spinner } from 'theme-ui'
 export const Loading = React.memo(() => {
   return (
     <Box sx={{ textAlign: 'center' }}>
-      <Spinner size={20} sx={{ color: '#000' }} />
+      <Spinner size={20} sx={{ color: 'text' }} />
     </Box>
   )
 })

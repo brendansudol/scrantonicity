@@ -1,26 +1,53 @@
 import Tippy from '@tippyjs/react'
-import React from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import {
   FiLink as LinkIcon,
   FiTwitter as TwitterIcon,
   FiMoreHorizontal as ShareIcon
 } from 'react-icons/fi'
+import { useHistory, useLocation } from 'react-router-dom'
 import { Box, Flex, IconButton, Text, useColorMode } from 'theme-ui'
 
-export const Share = React.memo(() => {
+export const Share = React.memo(({ hash, message }) => {
   const [mode] = useColorMode()
   const theme = mode === 'dark' ? '' : 'light'
+
+  const [isPopoverVisible, setIsPopoverVisible] = useState(false)
+  const handleHidePopover = useCallback(() => setIsPopoverVisible(false), [])
+  const handleShowPopover = useCallback(() => setIsPopoverVisible(true), [])
+
+  const { pathname, search } = useLocation()
+  const history = useHistory()
+
+  const handleLinkClick = useCallback(
+    () => {
+      history.push({ hash, search })
+      handleHidePopover()
+    },
+    [history, hash, handleHidePopover, search]
+  )
+
+  const tweetUrl = useMemo(
+    () => {
+      const url = `${window.location.origin}${pathname}#${hash}`
+      const params = `text=${encode(message)}&url=${encode(url)}`
+      return `https://twitter.com/intent/tweet?${params}`
+    },
+    [hash, message, pathname]
+  )
 
   return (
     <Box>
       <Tippy
         theme={theme}
-        trigger="click"
         interactive={true}
-        interactiveBorder={30}
-        content={<ShareInner />}
+        visible={isPopoverVisible}
+        onClickOutside={handleHidePopover}
+        content={
+          <PopoverContent tweetUrl={tweetUrl} onLinkClick={handleLinkClick} />
+        }
       >
-        <IconButton variant="iconSm">
+        <IconButton variant="iconSm" onClick={handleShowPopover}>
           <ShareIcon size={16} />
         </IconButton>
       </Tippy>
@@ -28,16 +55,28 @@ export const Share = React.memo(() => {
   )
 })
 
-const ShareInner = () => (
-  <Box>
-    <Text>Share...</Text>
-    <Flex>
-      <IconButton mr={1} variant="iconSm">
-        <TwitterIcon size={14} />
-      </IconButton>
-      <IconButton variant="iconSm">
-        <LinkIcon size={14} />
-      </IconButton>
-    </Flex>
-  </Box>
-)
+const PopoverContent = React.memo(({ tweetUrl, onLinkClick }) => {
+  return (
+    <Box p={1} sx={{ width: 150 }}>
+      <Text mb={2} sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+        Share via:
+      </Text>
+      <Flex>
+        <Box sx={{ flex: 1, textAlign: 'center' }}>
+          <IconButton onClick={onLinkClick}>
+            <LinkIcon size={16} />
+          </IconButton>
+          <Text sx={{ fontSize: 12 }}>Permalink</Text>
+        </Box>
+        <Box sx={{ flex: 1, textAlign: 'center' }}>
+          <IconButton as="a" target="_blank" href={tweetUrl}>
+            <TwitterIcon size={16} />
+          </IconButton>
+          <Text sx={{ fontSize: 12 }}>Twitter</Text>
+        </Box>
+      </Flex>
+    </Box>
+  )
+})
+
+const encode = txt => encodeURIComponent(txt)

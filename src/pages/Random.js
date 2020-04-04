@@ -36,7 +36,7 @@ export const Random = React.memo(() => {
           <SceneLines scene={sceneLines} />
         </Box>
         <Text sx={{ fontStyle: 'italic', fontSize: 14 }}>
-          – {title} (Season {season}, Episode {episode})
+          "{title}" (S{season}, E{episode})
         </Text>
       </Card>
       <Button

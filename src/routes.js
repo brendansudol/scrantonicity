@@ -17,7 +17,8 @@ export const routes = [
     exact: true,
     component: Episode,
     tab: {
-      label: 'Episode scripts',
+      labelShort: 'Episodes',
+      labelLong: 'Episode scripts',
       href: '/episode'
     }
   },
@@ -26,7 +27,8 @@ export const routes = [
     exact: true,
     component: Search,
     tab: {
-      label: 'Search favorite lines',
+      labelShort: 'Search',
+      labelLong: 'Search favorite lines',
       href: '/search'
     }
   },
@@ -35,7 +37,8 @@ export const routes = [
     exact: true,
     component: Random,
     tab: {
-      label: 'Random scene',
+      labelShort: 'Random',
+      labelLong: 'Random scene',
       href: '/random'
     }
   }

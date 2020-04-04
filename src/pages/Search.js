@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { Box, Button, Card, Flex, Input, Message, Text } from 'theme-ui'
 import { Loading } from '../components/Loading'
 import { ScrollToTopButton } from '../components/ScrollToTopButton'
+import { Share } from '../components/Share'
 import { AppContext } from '../context'
 import { useHash, useQuery } from '../hooks'
 import { sanitizeText, wait } from '../utils'
@@ -35,15 +36,6 @@ export const Search = React.memo(() => {
     [corpus, query]
   )
 
-  useEffect(
-    () => {
-      if (results == null || hash === '') return
-      const el = document.getElementById(hash)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    },
-    [results, hash]
-  )
-
   const handleSearch = useCallback(
     q => history.push({ search: new URLSearchParams({ q }).toString() }),
     [history]
@@ -55,7 +47,12 @@ export const Search = React.memo(() => {
         <title>Scantonicity :: Search for favorite quotes</title>
       </Helmet>
       <SearchForm initialValue={query} onSubmit={handleSearch} />
-      <ResultList query={query} isLoading={isLoading} results={results} />
+      <ResultList
+        query={query}
+        hash={hash}
+        isLoading={isLoading}
+        results={results}
+      />
       <ScrollToTopButton />
     </Box>
   )
@@ -93,7 +90,19 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
   )
 })
 
-const ResultList = React.memo(({ query, isLoading, results }) => {
+const ResultList = React.memo(({ query, hash, isLoading, results }) => {
+  const [isReady, setIsReady] = useState(false)
+  const resultsEl = useCallback(node => node != null && setIsReady(true), [])
+
+  useEffect(
+    () => {
+      if (results == null || hash === '') return
+      const el = document.getElementById(hash)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    },
+    [isReady, results, hash]
+  )
+
   if (isLoading) return <Loading />
   if (results == null || query === '') return null
 
@@ -109,17 +118,24 @@ const ResultList = React.memo(({ query, isLoading, results }) => {
   }
 
   return (
-    <Box>
-      <Text mb={1}>
+    <Box ref={resultsEl}>
+      <Text mb={1} sx={{ fontWeight: 'bold' }}>
         {ct === MAX_RESULTS ? `${ct}+` : ct} result{ct !== 1 ? 's' : ''}
       </Text>
       {results.map(({ season, episode, title, sceneData }, i) => {
         const resultId = `result-${i + 1}`
+        const borderColor = hash === resultId ? 'darken' : undefined
         return (
           <Box key={resultId} id={resultId} py={1}>
-            <Card mb={2}>
-              <Text mb={3} sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                "{title}" (Season {season} Episode {episode})
+            <Card mb={2} sx={{ position: 'relative', borderColor }}>
+              <Box m={1} sx={{ position: 'absolute', top: 0, right: 0 }}>
+                <Share
+                  hash={resultId}
+                  message={`The Office - Search episode scripts for "${query}", via Scrantonicity`}
+                />
+              </Box>
+              <Text mb={3} sx={{ fontStyle: 'italic', fontSize: 16 }}>
+                "{title}" (S{season}, E{episode})
               </Text>
               {sceneData.map((line, j) => (
                 <Box key={j} mb={j !== sceneData.length - 1 ? 3 : undefined}>

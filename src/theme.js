@@ -6,6 +6,7 @@ export const theme = {
     secondary: '#111199',
     muted: '#f8f8f8',
     highlight: '#efeffe',
+    lightgray: '#ddd',
     gray: '#777777',
     accent: '#660099',
     darken: 'rgba(0, 0, 0, .0625)',
@@ -18,7 +19,7 @@ export const theme = {
         muted: '#191919',
         highlight: '#29112c',
         gray: '#999999',
-        lightgray: '#eee',
+        lightgray: '#666',
         accent: '#cc00ff',
         darken: 'rgba(255, 255, 255, .0625)'
       }
@@ -64,6 +65,19 @@ export const theme = {
       lineHeight: 'heading',
       textTransform: 'uppercase',
       letterSpacing: '0.1em'
+    },
+    smScreen: {
+      variant: 'text.heading',
+      '@media (min-width: 40em)': {
+        display: 'none'
+      }
+    },
+    lgScreen: {
+      variant: 'text.heading',
+      display: 'none',
+      '@media (min-width: 40em)': {
+        display: 'block'
+      }
     }
   },
   buttons: {
@@ -182,6 +196,8 @@ export const theme = {
     primary: {
       padding: 2,
       borderRadius: 8,
+      border: '2px solid',
+      borderColor: 'transparent',
       bg: 'muted'
     },
     compact: {

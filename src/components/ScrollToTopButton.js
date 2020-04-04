@@ -26,7 +26,7 @@ export const ScrollToTopButton = React.memo(() => {
 
   return (
     <Box m={2} sx={{ position: 'fixed', bottom: 0, right: 0 }}>
-      <IconButton onClick={handleScrollToTop}>
+      <IconButton onClick={handleScrollToTop} sx={{ width: 30, height: 30 }}>
         <FiArrowUpCircle size={24} />
       </IconButton>
     </Box>

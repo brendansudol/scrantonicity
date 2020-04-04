@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React, { useCallback, useState } from 'react'
 import { IoMdHelpCircle as HelpIcon } from 'react-icons/io'
 import { Link, useLocation } from 'react-router-dom'
-import { Box, Flex, Heading, IconButton, Image, NavLink } from 'theme-ui'
+import { Box, Flex, Heading, IconButton, Image, NavLink, Text } from 'theme-ui'
 import { getActiveTab, routesWithTabs } from '../routes'
 import { ColorModeButton } from './ColorModeButton'
 
@@ -42,7 +42,8 @@ export const Header = React.memo(() => {
             to={tab.href}
             className={classNames({ active: i === activeTab })}
           >
-            {tab.label}
+            <Text variant="smScreen">{tab.labelShort}</Text>
+            <Text variant="lgScreen">{tab.labelLong}</Text>
           </NavLink>
         ))}
       </Flex>
