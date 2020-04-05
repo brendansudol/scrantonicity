@@ -1,22 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
-import { Box, Button, Card, Text } from 'theme-ui'
-import { Loading } from '../components/Loading'
-import { SceneLines } from '../components/SceneLines'
-import { AppContext } from '../context'
+import React, { useContext, useEffect, useState } from "react"
+import { Helmet } from "react-helmet"
+import { Box, Button, Card, Text } from "theme-ui"
+import { Loading } from "../components/Loading"
+import { SceneLines } from "../components/SceneLines"
+import { AppContext } from "../context"
 
 export const Random = React.memo(() => {
   const { data } = useContext(AppContext)
   const episodeData = data?.episodeData
   const [scene, setScene] = useState(null)
 
-  useEffect(
-    () => {
-      if (episodeData == null) return
-      setScene(getRandomScene(episodeData))
-    },
-    [episodeData]
-  )
+  useEffect(() => {
+    if (episodeData == null) return
+    setScene(getRandomScene(episodeData))
+  }, [episodeData])
 
   function handleRefresh() {
     setScene(getRandomScene(episodeData))
@@ -35,12 +32,12 @@ export const Random = React.memo(() => {
         <Box mb={3}>
           <SceneLines scene={sceneLines} />
         </Box>
-        <Text sx={{ fontStyle: 'italic', fontSize: 14 }}>
+        <Text sx={{ fontStyle: "italic", fontSize: 14 }}>
           "{title}" (S{season}, E{episode})
         </Text>
       </Card>
       <Button
-        sx={{ px: 2, py: 1, bg: 'tomato', fontSize: 12, fontWeight: 'bold' }}
+        sx={{ px: 2, py: 1, bg: "tomato", fontSize: 12, fontWeight: "bold" }}
         onClick={handleRefresh}
       >
         Refresh

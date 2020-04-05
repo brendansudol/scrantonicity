@@ -1,14 +1,23 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
-import Highlighter from 'react-highlight-words'
-import { useHistory } from 'react-router-dom'
-import { Box, Button, Card, Flex, Input, Message, Text } from 'theme-ui'
-import { Loading } from '../components/Loading'
-import { ScrollToTopButton } from '../components/ScrollToTopButton'
-import { Share } from '../components/Share'
-import { AppContext } from '../context'
-import { useHash, useQuery } from '../hooks'
-import { sanitizeText, wait } from '../utils'
+import React, { useCallback, useContext, useEffect, useState } from "react"
+import { Helmet } from "react-helmet"
+import Highlighter from "react-highlight-words"
+import { useHistory } from "react-router-dom"
+import {
+  Box,
+  Button,
+  Card,
+  Flex,
+  Heading,
+  Input,
+  Message,
+  Text,
+} from "theme-ui"
+import { Loading } from "../components/Loading"
+import { ScrollToTopButton } from "../components/ScrollToTopButton"
+import { Share } from "../components/Share"
+import { AppContext } from "../context"
+import { useHash, useQuery } from "../hooks"
+import { sanitizeText, wait } from "../utils"
 
 const MAX_RESULTS = 100
 
@@ -22,22 +31,19 @@ export const Search = React.memo(() => {
   const history = useHistory()
   const hash = useHash()
   const queryParams = useQuery()
-  const query = queryParams.get('q') ?? ''
+  const query = queryParams.get("q") ?? ""
 
-  useEffect(
-    () => {
-      if (corpus == null || query === '') return
-      setIsLoading(true)
-      wait(500).then(() => {
-        setResults(getResults(corpus, query))
-        setIsLoading(false)
-      })
-    },
-    [corpus, query]
-  )
+  useEffect(() => {
+    if (corpus == null || query === "") return
+    setIsLoading(true)
+    wait(500).then(() => {
+      setResults(getResults(corpus, query))
+      setIsLoading(false)
+    })
+  }, [corpus, query])
 
   const handleSearch = useCallback(
-    q => history.push({ search: new URLSearchParams({ q }).toString() }),
+    (q) => history.push({ search: new URLSearchParams({ q }).toString() }),
     [history]
   )
 
@@ -60,9 +66,9 @@ export const Search = React.memo(() => {
 
 const SearchForm = React.memo(({ initialValue, onSubmit }) => {
   const [query, setQuery] = useState(initialValue)
-  const handleChange = useCallback(e => setQuery(e.target.value), [])
+  const handleChange = useCallback((e) => setQuery(e.target.value), [])
   const handleSubmit = useCallback(
-    e => {
+    (e) => {
       e.preventDefault()
       onSubmit(query)
     },
@@ -71,8 +77,8 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
 
   return (
     <Box mb={4} as="form" onSubmit={handleSubmit}>
-      <Flex mx={-1} sx={{ alignItems: 'center' }}>
-        <Box px={1} sx={{ flex: '1 1 auto' }}>
+      <Flex mx={-1} sx={{ alignItems: "center" }}>
+        <Box px={1} sx={{ flex: "1 1 auto" }}>
           <Input
             id="query"
             name="query"
@@ -92,49 +98,47 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
 
 const ResultList = React.memo(({ query, hash, isLoading, results }) => {
   const [isReady, setIsReady] = useState(false)
-  const resultsEl = useCallback(node => node != null && setIsReady(true), [])
+  const resultsEl = useCallback((node) => node != null && setIsReady(true), [])
 
-  useEffect(
-    () => {
-      if (results == null || hash === '') return
-      const el = document.getElementById(hash)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    },
-    [isReady, results, hash]
-  )
+  useEffect(() => {
+    if (results == null || hash === "") return
+    const el = document.getElementById(hash)
+    if (el) el.scrollIntoView({ behavior: "smooth" })
+  }, [isReady, results, hash])
 
   if (isLoading) return <Loading />
-  if (results == null || query === '') return null
+  if (results == null || query === "") return null
 
-  const ct = results.length
+  const count = results.length
   const highlighterQuery = normalizeQueryForHighlighter(query)
 
-  if (ct === 0) {
+  if (count === 0) {
     return (
       <Message variant="danger">
-        <strong>Sorry!</strong> No results for <em>{query}</em>
+        <strong>Sorry!</strong> No results for “{query}”
       </Message>
     )
   }
 
   return (
     <Box ref={resultsEl}>
-      <Text mb={1} sx={{ fontWeight: 'bold' }}>
-        {ct === MAX_RESULTS ? `${ct}+` : ct} result{ct !== 1 ? 's' : ''}
-      </Text>
+      <Heading mb={2} sx={{ fontSize: 20 }}>
+        {count === MAX_RESULTS ? `${count}+` : count} result
+        {count !== 1 ? "s" : ""} for “{query}”
+      </Heading>
       {results.map(({ season, episode, title, sceneData }, i) => {
         const resultId = `result-${i + 1}`
-        const borderColor = hash === resultId ? 'darken' : undefined
+        const borderColor = hash === resultId ? "darken" : undefined
         return (
           <Box key={resultId} id={resultId} py={1}>
-            <Card mb={2} sx={{ position: 'relative', borderColor }}>
-              <Box m={1} sx={{ position: 'absolute', top: 0, right: 0 }}>
+            <Card mb={2} sx={{ position: "relative", borderColor }}>
+              <Box m={1} sx={{ position: "absolute", top: 0, right: 0 }}>
                 <Share
                   hash={resultId}
                   message={`The Office - Search episode scripts for "${query}", via Scrantonicity`}
                 />
               </Box>
-              <Text mb={3} sx={{ fontStyle: 'italic', fontSize: 16 }}>
+              <Text mb={3} sx={{ fontStyle: "italic", fontSize: 16 }}>
                 "{title}" (S{season}, E{episode})
               </Text>
               {sceneData.map((line, j) => (
@@ -175,6 +179,6 @@ function getResults(corpus, query) {
 }
 
 function normalizeQueryForHighlighter(query) {
-  const words = sanitizeText(query).split(' ')
-  return new RegExp(`${words.join('[\\s.?…,–]+')}`)
+  const words = sanitizeText(query).split(" ")
+  return new RegExp(`${words.join("[\\s.?…,–]+")}`)
 }

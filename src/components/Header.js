@@ -1,12 +1,12 @@
-import classNames from 'classnames'
-import React, { useCallback, useState } from 'react'
-import { IoMdHelpCircle as HelpIcon } from 'react-icons/io'
-import { Link, useLocation } from 'react-router-dom'
-import { Box, Flex, Heading, IconButton, Image, NavLink, Text } from 'theme-ui'
-import { getActiveTab, routesWithTabs } from '../routes'
-import { ColorModeButton } from './ColorModeButton'
+import classNames from "classnames"
+import React, { useCallback, useState } from "react"
+import { IoMdHelpCircle as HelpIcon } from "react-icons/io"
+import { Link as RRLink, useLocation } from "react-router-dom"
+import { Box, Flex, IconButton, Image, Link, NavLink, Text } from "theme-ui"
+import { getActiveTab, routesWithTabs } from "../routes"
+import { ColorModeButton } from "./ColorModeButton"
 
-import { Modal } from './Modal'
+import { Modal } from "./Modal"
 
 export const Header = React.memo(() => {
   const { pathname } = useLocation()
@@ -18,14 +18,20 @@ export const Header = React.memo(() => {
 
   return (
     <Box as="header" mb={4}>
-      <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Flex mb={3} sx={{ alignItems: 'center' }}>
+      <Flex sx={{ justifyContent: "space-between", alignItems: "center" }}>
+        <Flex mb={3} sx={{ alignItems: "center" }}>
           <Image
-            mr={2}
+            mr={1}
             src={`${process.env.PUBLIC_URL}/logo.png`}
             variant="avatar"
           />
-          <Heading>Scrantonicity</Heading>
+          <Link
+            variant="buttonLink"
+            sx={{ px: 1, py: 0, fontSize: 4 }}
+            href="/"
+          >
+            Scrantonicity
+          </Link>
         </Flex>
         <Box>
           <IconButton mr={2} onClick={handleOpenModal}>
@@ -38,7 +44,7 @@ export const Header = React.memo(() => {
         {routesWithTabs.map(({ tab }, i) => (
           <NavLink
             key={i}
-            as={Link}
+            as={RRLink}
             to={tab.href}
             className={classNames({ active: i === activeTab })}
           >

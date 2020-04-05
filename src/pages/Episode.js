@@ -1,13 +1,13 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react'
-import { Helmet } from 'react-helmet'
-import { useHistory, useParams } from 'react-router-dom'
-import { Box, Card, Select } from 'theme-ui'
-import { Loading } from '../components/Loading'
-import { SceneLines } from '../components/SceneLines'
-import { Share } from '../components/Share'
-import { ScrollToTopButton } from '../components/ScrollToTopButton'
-import { AppContext } from '../context'
-import { useHash } from '../hooks'
+import React, { useCallback, useContext, useEffect, useMemo } from "react"
+import { Helmet } from "react-helmet"
+import { useHistory, useParams } from "react-router-dom"
+import { Box, Card, Heading, Select } from "theme-ui"
+import { Loading } from "../components/Loading"
+import { SceneLines } from "../components/SceneLines"
+import { ScrollToTopButton } from "../components/ScrollToTopButton"
+import { Share } from "../components/Share"
+import { AppContext } from "../context"
+import { useHash } from "../hooks"
 
 export const Episode = React.memo(() => {
   const { data } = useContext(AppContext)
@@ -16,38 +16,26 @@ export const Episode = React.memo(() => {
   const history = useHistory()
   const hash = useHash()
   const { id } = useParams()
-  const episodeId = id ?? ''
+  const episodeId = id ?? ""
 
-  useEffect(
-    () => {
-      if (episodeData == null || hash === '') return
-      const el = document.getElementById(hash)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    },
-    [episodeData, hash]
-  )
+  useEffect(() => {
+    if (episodeData == null || hash === "") return
+    const el = document.getElementById(hash)
+    if (el) el.scrollIntoView({ behavior: "smooth" })
+  }, [episodeData, hash])
 
-  const episode = useMemo(
-    () => {
-      if (episodeData == null || episodeId == null) return
-      return episodeData.find(d => d.id === episodeId)
-    },
-    [episodeData, episodeId]
-  )
+  const episode = useMemo(() => {
+    if (episodeData == null || episodeId === "") return
+    return episodeData.find((d) => d.id === episodeId)
+  }, [episodeData, episodeId])
 
-  const episodeOptions = useMemo(
-    () => {
-      if (episodeData == null) return []
-      return episodeData.map(d => ({
-        value: d.id,
-        label: `${d.season}-${d.episode} ${d.title}`
-      }))
-    },
-    [episodeData]
-  )
+  const episodeOptions = useMemo(() => {
+    if (episodeData == null) return []
+    return episodeData.map(toSelectOption)
+  }, [episodeData])
 
   const handleEpisodeChange = useCallback(
-    e => history.push(`/episode/${e.target.value}`),
+    (e) => history.push(`/episode/${e.target.value}`),
     [history]
   )
 
@@ -58,14 +46,14 @@ export const Episode = React.memo(() => {
       <Helmet>
         <title>Scantonicity :: Read episode scripts</title>
       </Helmet>
-      <Box mb={3}>
+      <Box mb={4}>
         <Select
           name="episode"
           value={episodeId}
           onChange={handleEpisodeChange}
           autoFocus={true}
         >
-          <option value="">Select an episode</option>
+          <option value="">Select an episode...</option>
           {episodeOptions.map(({ value, label }) => (
             <option key={value} value={value}>
               {label}
@@ -75,13 +63,17 @@ export const Episode = React.memo(() => {
       </Box>
       {episode != null && (
         <Box>
+          <Heading mb={2} sx={{ fontSize: 20 }}>
+            Episode script for “{episode.title}” (Season {episode.season},
+            Episode {episode.episode})
+          </Heading>
           {episode.scenes.map((scene, i) => {
             const sceneId = `scene-${i + 1}`
-            const borderColor = hash === sceneId ? 'darken' : undefined
+            const borderColor = hash === sceneId ? "darken" : undefined
             return (
               <Box key={sceneId} id={sceneId} py={1}>
-                <Card mb={2} sx={{ position: 'relative', borderColor }}>
-                  <Box m={1} sx={{ position: 'absolute', top: 0, right: 0 }}>
+                <Card mb={2} sx={{ position: "relative", borderColor }}>
+                  <Box m={1} sx={{ position: "absolute", top: 0, right: 0 }}>
                     <Share
                       hash={sceneId}
                       message={getShareMessage(episode, scene)}
@@ -99,8 +91,16 @@ export const Episode = React.memo(() => {
   )
 })
 
+function toSelectOption(episodeInfo) {
+  const { id, season, episode, title } = episodeInfo
+  return {
+    value: id,
+    label: `S${season}, E${episode} - ${title}`,
+  }
+}
+
 // TODO: make message sound more gooder
-function getShareMessage(episodeData, _scene) {
-  const { season, episode, title } = episodeData
+function getShareMessage(episodeInfo, _scene) {
+  const { season, episode, title } = episodeInfo
   return `The Office - "${title}" (S${season}, E${episode}), via Scrantonicity`
 }

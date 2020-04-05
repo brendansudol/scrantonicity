@@ -16,6 +16,7 @@
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-select": "1.x",
     "react-use": "^13.27.1",
     "theme-ui": "^0.3.1"
   },
