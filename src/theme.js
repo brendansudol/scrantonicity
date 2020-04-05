@@ -53,6 +53,11 @@ export const theme = {
       fontWeight: "heading",
       lineHeight: "heading",
     },
+    smDisplay: {
+      variant: "text.heading",
+      fontSize: [2, 3],
+      mb: 2,
+    },
     display: {
       variant: "text.heading",
       fontSize: [5, 6],

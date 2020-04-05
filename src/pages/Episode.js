@@ -63,7 +63,7 @@ export const Episode = React.memo(() => {
       </Box>
       {episode != null && (
         <Box>
-          <Heading mb={2} sx={{ fontSize: 20 }}>
+          <Heading variant="smDisplay">
             Episode script for “{episode.title}” (Season {episode.season},
             Episode {episode.episode})
           </Heading>

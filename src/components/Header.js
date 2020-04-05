@@ -28,7 +28,8 @@ export const Header = React.memo(() => {
           <Link
             variant="buttonLink"
             sx={{ px: 1, py: 0, fontSize: 4 }}
-            href="/"
+            as={RRLink}
+            to={"/"}
           >
             Scrantonicity
           </Link>

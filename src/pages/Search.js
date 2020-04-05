@@ -122,7 +122,7 @@ const ResultList = React.memo(({ query, hash, isLoading, results }) => {
 
   return (
     <Box ref={resultsEl}>
-      <Heading mb={2} sx={{ fontSize: 20 }}>
+      <Heading variant="smDisplay">
         {count === MAX_RESULTS ? `${count}+` : count} result
         {count !== 1 ? "s" : ""} for “{query}”
       </Heading>
