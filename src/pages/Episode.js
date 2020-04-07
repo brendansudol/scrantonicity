@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo } from "react"
 import { Helmet } from "react-helmet"
 import { useHistory, useParams } from "react-router-dom"
 import { Box, Card, Heading, Select } from "theme-ui"
+import { EpisodeEmptyState } from "../components/EpisodeEmptyState"
 import { Loading } from "../components/Loading"
 import { SceneLines } from "../components/SceneLines"
 import { ScrollToTopButton } from "../components/ScrollToTopButton"
@@ -61,7 +62,9 @@ export const Episode = React.memo(() => {
           ))}
         </Select>
       </Box>
-      {episode != null && (
+      {episode == null ? (
+        <EpisodeEmptyState allEpisodes={episodeData} />
+      ) : (
         <Box>
           <Heading variant="smDisplay">
             Episode script for “{episode.title}” (Season {episode.season},

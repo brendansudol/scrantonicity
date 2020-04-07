@@ -1,6 +1,7 @@
 import React from "react"
 import { render } from "react-dom"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import smoothScroll from "smoothscroll-polyfill"
 import { Box, Container, ThemeProvider } from "theme-ui"
 import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
@@ -12,11 +13,13 @@ import "tippy.js/dist/tippy.css"
 import "tippy.js/themes/light.css"
 import "./index.css"
 
+smoothScroll.polyfill()
+
 const Root = () => (
   <AppProvider>
     <ThemeProvider theme={theme}>
       <Router>
-        <Box sx={{ fontFamily: "athelas, georgia, serif" }}>
+        <Box>
           <Container
             p={3}
             sx={{

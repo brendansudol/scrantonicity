@@ -1,3 +1,10 @@
+const fonts = {
+  sans:
+    'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+  serif: "athelas, georgia, serif",
+  monospace: "menlo, consolas, monaco, monospace",
+}
+
 export const theme = {
   colors: {
     text: "#000000",
@@ -16,7 +23,7 @@ export const theme = {
         background: "#060606",
         primary: "#33ccff",
         secondary: "#ee00ff",
-        muted: "#191919",
+        muted: "#222",
         highlight: "#29112c",
         gray: "#999999",
         lightgray: "#666",
@@ -26,10 +33,9 @@ export const theme = {
     },
   },
   fonts: {
-    body:
-      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
-    heading: "athelas, georgia, serif",
-    monospace: "menlo, consolas, monaco, monospace",
+    ...fonts,
+    body: fonts.serif,
+    heading: fonts.serif,
   },
   breakpoints: ["40em", "56em", "64em"],
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
@@ -91,6 +97,7 @@ export const theme = {
       color: "background",
       bg: "primary",
       fontWeight: "bold",
+      fontFamily: "sans",
       borderRadius: 8,
       "&:hover": {
         cursor: "pointer",
@@ -236,6 +243,7 @@ export const theme = {
       fontWeight: "bold",
     },
     input: {
+      fontFamily: "sans",
       borderColor: "lightgray",
       borderRadius: 8,
       "&:focus": {
@@ -245,6 +253,7 @@ export const theme = {
       },
     },
     select: {
+      fontFamily: "sans",
       borderColor: "lightgray",
       borderRadius: 8,
       "&:focus": {
@@ -254,6 +263,7 @@ export const theme = {
       },
     },
     textarea: {
+      fontFamily: "sans",
       borderColor: "lightgray",
       borderRadius: 8,
       "&:focus": {
@@ -284,6 +294,11 @@ export const theme = {
     },
   },
   messages: {
+    dark: {
+      color: "text",
+      borderLeftColor: "text",
+      bg: "muted",
+    },
     success: {
       color: "#257942",
       borderLeftColor: "#48c774",
@@ -335,11 +350,9 @@ export const theme = {
       fontSize: 1,
     },
     a: {
-      color: "primary",
+      color: "text",
+      fontWeight: "bold",
       textDecoration: "none",
-      "&:hover": {
-        color: "secondary",
-      },
     },
     pre: {
       fontFamily: "monospace",
