@@ -33,6 +33,7 @@ export const Modal = React.memo(({ isOpen, onClose, children }) => {
       />
       <div
         sx={{
+          m: 2,
           p: 3,
           bg: "background",
           borderRadius: 8,
