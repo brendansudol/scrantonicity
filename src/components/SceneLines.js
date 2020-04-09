@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, Text } from 'theme-ui'
+import React from "react"
+import { Box, Text } from "theme-ui"
 
 export const SceneLines = React.memo(({ scene }) => {
   return (

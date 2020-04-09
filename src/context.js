@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { sanitizeText } from './utils'
+import React, { createContext, useEffect, useState } from "react"
+import { sanitizeText } from "./utils"
 
 export const AppContext = createContext()
 
@@ -10,8 +10,8 @@ export const AppProvider = React.memo(({ children }) => {
 
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/data/the-office.min.json`)
-      .then(response => response.json())
-      .then(episodeData => {
+      .then((response) => response.json())
+      .then((episodeData) => {
         const sceneData = getSceneData(episodeData)
         setData({ episodeData, sceneData })
       })
@@ -25,7 +25,7 @@ function getSceneData(episodeData) {
   for (const datum of episodeData) {
     const { id: episodeId, scenes, ...rest } = datum
     for (const [sceneId, sceneData] of scenes.entries()) {
-      const sceneLines = sceneData.map(d => sanitizeText(d.line))
+      const sceneLines = sceneData.map((d) => sanitizeText(d.line))
       entries.push({ episodeId, sceneId, sceneData, sceneLines, ...rest })
     }
   }

@@ -8,9 +8,11 @@ import { ColorModeButton } from "./ColorModeButton"
 
 import { Modal } from "./Modal"
 
+const FALLBACK_TAB_INDEX = 0
+
 export const Header = React.memo(() => {
   const { pathname } = useLocation()
-  const activeTab = getActiveTab(pathname) ?? 0
+  const activeTab = getActiveTab(pathname) ?? FALLBACK_TAB_INDEX
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const handleOpenModal = useCallback(() => setIsModalOpen(true), [])
@@ -56,9 +58,9 @@ export const Header = React.memo(() => {
       </Flex>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <Box p={1}>
-          Scrantonicity is a simple website dedicated to{" "}
-          <strong>The Office</strong>. Read full episode scripts, search for
-          your favorite lines, and share the scenes you love the most.
+          Scrantonicity is a little website dedicated to{" "}
+          <strong>The Office</strong>. Read full episode scripts, search your
+          favorite lines, and share the scenes you love the most.
         </Box>
       </Modal>
     </Box>

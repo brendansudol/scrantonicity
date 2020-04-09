@@ -89,7 +89,7 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
           />
         </Box>
         <Box px={1}>
-          <Button onClick={() => onSubmit(query)}>Search</Button>
+          <Button type="submit">Search</Button>
         </Box>
       </Flex>
     </Box>

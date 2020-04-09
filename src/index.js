@@ -3,6 +3,7 @@ import { render } from "react-dom"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import smoothScroll from "smoothscroll-polyfill"
 import { Box, Container, ThemeProvider } from "theme-ui"
+import { Analytics } from "./components/Analytics"
 import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
 import { AppProvider } from "./context"
@@ -38,6 +39,7 @@ const Root = () => (
             </Box>
             <Footer />
           </Container>
+          <Analytics />
         </Box>
       </Router>
     </ThemeProvider>
