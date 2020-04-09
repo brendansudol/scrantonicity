@@ -36,7 +36,7 @@ export const EpisodeEmptyState = React.memo(({ allEpisodes }) => {
         ))}
       </Card>
       {mode === "default" && (
-        <Box py={5} sx={{ textAlign: "center" }}>
+        <Box pt={5} pb={3} sx={{ textAlign: "center" }}>
           <Image
             sx={{ width: 100 }}
             src={`${process.env.PUBLIC_URL}/stars.gif`}

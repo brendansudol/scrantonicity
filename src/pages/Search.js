@@ -82,7 +82,7 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
           <Input
             id="query"
             name="query"
-            placeholder="Search..."
+            placeholder="Search by phrase..."
             value={query}
             onChange={handleChange}
             autoFocus={true}

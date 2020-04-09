@@ -1,10 +1,9 @@
 TODO:
 
-* about modal content
 * improve copy (add meta descriptions, tweet messages, etc.)
-* copy permalink, add notification callout?
-* update README.md
+* Add google analytics
 
 MAYBE:
 
 * better select input for main page
+* copy permalink to clipboard, add notification callout?
