@@ -4,13 +4,14 @@ import { Episode } from "./pages/Episode"
 import { Random } from "./pages/Random"
 import { Search } from "./pages/Search"
 
-const Root = () => <Redirect to="/episode" />
+// eslint-disable-next-line
+const Home = () => <Redirect to="/episode" />
 
 export const routes = [
   {
     path: "/",
     exact: true,
-    component: Root,
+    component: Episode,
   },
   {
     path: "/episode/:id?",

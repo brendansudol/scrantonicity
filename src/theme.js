@@ -189,6 +189,12 @@ export const theme = {
         bg: "highlight",
       },
     },
+    basic: {
+      color: "primary",
+      fontSize: 1,
+      fontWeight: "normal",
+      textDecoration: "underline",
+    },
   },
   badges: {
     primary: {

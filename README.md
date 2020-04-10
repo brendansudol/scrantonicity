@@ -1,6 +1,8 @@
 **Scrantonicity**
 
-Read episode scripts and rediscover your favorite lines from The Office.
+A little website devoted to The Office.
+
+Read full episode scripts, search your favorite lines, and share the scenes you love the most.
 
 🏢👨‍💼😂
 

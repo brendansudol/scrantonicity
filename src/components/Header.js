@@ -10,6 +10,17 @@ import { Modal } from "./Modal"
 
 const FALLBACK_TAB_INDEX = 0
 
+const ABOUT_MODAL_LINKS = [
+  {
+    href: "https://twitter.com/brensudol",
+    text: "Made by @brensudol",
+  },
+  {
+    href: "https://github.com/brendansudol/scrantonicity",
+    text: "Code on GitHub",
+  },
+]
+
 export const Header = React.memo(() => {
   const { pathname } = useLocation()
   const activeTab = getActiveTab(pathname) ?? FALLBACK_TAB_INDEX
@@ -58,9 +69,24 @@ export const Header = React.memo(() => {
       </Flex>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <Box p={1}>
-          Scrantonicity is a little website dedicated to{" "}
-          <strong>The Office</strong>. Read full episode scripts, search your
-          favorite lines, and share the scenes you love the most.
+          <Box mb={2}>
+            Scrantonicity is a little website dedicated to{" "}
+            <strong>The Office</strong>. Read full episode scripts, search your
+            favorite lines, and share the scenes you love the most.
+          </Box>
+          <Box>
+            {ABOUT_MODAL_LINKS.map((link, idx) => (
+              <Link
+                key={idx}
+                mr={3}
+                variant="basic"
+                target="_blank"
+                href={link.href}
+              >
+                {link.text}
+              </Link>
+            ))}
+          </Box>
         </Box>
       </Modal>
     </Box>
