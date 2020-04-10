@@ -45,7 +45,10 @@ export const Episode = React.memo(() => {
   return (
     <Box>
       <Helmet>
-        <title>Scantonicity :: Read episode scripts</title>
+        <title>
+          Scrantonicity ::{" "}
+          {episode == null ? "Episode scripts" : getEpisodeTitle(episode)}
+        </title>
       </Helmet>
       <Box mb={4}>
         <Select
@@ -102,8 +105,12 @@ function toSelectOption(episodeInfo) {
   }
 }
 
-// TODO: make message sound more gooder
+function getEpisodeTitle(episodeInfo) {
+  const { season, episode, title } = episodeInfo
+  return `${title} (S${season}, E${episode})`
+}
+
 function getShareMessage(episodeInfo, _scene) {
   const { season, episode, title } = episodeInfo
-  return `The Office - "${title}" (S${season}, E${episode}), via Scrantonicity`
+  return `"${title}" (S${season}, E${episode}) from The Office, via Scrantonicity`
 }

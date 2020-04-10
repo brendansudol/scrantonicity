@@ -26,7 +26,7 @@ export const Random = React.memo(() => {
   return (
     <Box>
       <Helmet>
-        <title>Scantonicity :: Random scene</title>
+        <title>Scrantonicity :: Random scene</title>
       </Helmet>
       <Card mb={3}>
         <Box mb={3}>

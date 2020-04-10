@@ -50,7 +50,7 @@ export const Search = React.memo(() => {
   return (
     <Box>
       <Helmet>
-        <title>Scantonicity :: Search for favorite quotes</title>
+        <title>Scrantonicity :: {query !== "" ? `${query}` : "Search"}</title>
       </Helmet>
       <SearchForm initialValue={query} onSubmit={handleSearch} />
       <ResultList
@@ -82,7 +82,7 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
           <Input
             id="query"
             name="query"
-            placeholder="Search by phrase..."
+            placeholder="Search by word or phrase..."
             value={query}
             onChange={handleChange}
             autoFocus={true}
@@ -135,7 +135,7 @@ const ResultList = React.memo(({ query, hash, isLoading, results }) => {
               <Box m={1} sx={{ position: "absolute", top: 0, right: 0 }}>
                 <Share
                   hash={resultId}
-                  message={`The Office - Search episode scripts for "${query}", via Scrantonicity`}
+                  message={`Every scene from The Office with the phrase "${query}", via Scrantonicity`}
                 />
               </Box>
               <Text mb={3} sx={{ fontStyle: "italic", fontSize: 16 }}>
