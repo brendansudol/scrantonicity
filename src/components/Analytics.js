@@ -12,6 +12,6 @@ export const Analytics = React.memo(() => {
 function usePageViews() {
   const { pathname, search } = useLocation()
   useEffect(() => {
-    ga.send(["pageview", `${pathname}${search}`])
+    ga.pageview(`${pathname}${search}`)
   }, [pathname, search])
 }
