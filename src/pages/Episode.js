@@ -55,7 +55,7 @@ export const Episode = React.memo(() => {
           name="episode"
           value={episodeId}
           onChange={handleEpisodeChange}
-          autoFocus={true}
+          autoFocus={episodeId === ""}
         >
           <option value="">Select an episode...</option>
           {episodeOptions.map(({ value, label }) => (

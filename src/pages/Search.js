@@ -52,7 +52,11 @@ export const Search = React.memo(() => {
       <Helmet>
         <title>Scrantonicity :: {query !== "" ? `${query}` : "Search"}</title>
       </Helmet>
-      <SearchForm initialValue={query} onSubmit={handleSearch} />
+      <SearchForm
+        initialValue={query}
+        autoFocus={hash === ""}
+        onSubmit={handleSearch}
+      />
       <ResultList
         query={query}
         hash={hash}
@@ -64,7 +68,7 @@ export const Search = React.memo(() => {
   )
 })
 
-const SearchForm = React.memo(({ initialValue, onSubmit }) => {
+const SearchForm = React.memo(({ initialValue, autoFocus, onSubmit }) => {
   const [query, setQuery] = useState(initialValue)
   const handleChange = useCallback((e) => setQuery(e.target.value), [])
   const handleSubmit = useCallback(
@@ -85,7 +89,7 @@ const SearchForm = React.memo(({ initialValue, onSubmit }) => {
             placeholder="Search by word or phrase..."
             value={query}
             onChange={handleChange}
-            autoFocus={true}
+            autoFocus={autoFocus}
           />
         </Box>
         <Box px={1}>

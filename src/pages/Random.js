@@ -37,7 +37,14 @@ export const Random = React.memo(() => {
         </Text>
       </Card>
       <Button
-        sx={{ px: 2, py: 1, bg: "tomato", fontSize: 12, fontWeight: "bold" }}
+        sx={{
+          px: 2,
+          py: 1,
+          bg: "tomato",
+          fontSize: 12,
+          fontWeight: "bold",
+          outline: "none",
+        }}
         onClick={handleRefresh}
       >
         Refresh
